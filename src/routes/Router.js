@@ -6,6 +6,9 @@ import DestinationPage from '../pages/DestinationPage';
 import TicketPage from '../pages/TicketPage';
 import HistoryPage from '../pages/HistoryPage';
 import Layout from '../layouts/Layout';
+import TerminalPage from '../pages/TerminalPage';
+import BookingPage from '../pages/BookingPage';
+import SummaryPage from '../pages/SummaryPage';
 
 const router = createBrowserRouter([
     {
@@ -16,26 +19,34 @@ const router = createBrowserRouter([
         path: '/register',
         element: <RegisterPage />
     },
+
     {
-        element: <Layout />,
-        children: [
-            {
-                path: '/home',
-                element: <HomePage />
-            },
-            {
-                path: '/destination',
-                element: <DestinationPage />
-            },
-            {
-                path: '/ticket',
-                element: <TicketPage />
-            },
-            {
-                path: '/history',
-                element: <HistoryPage />
-            }
-        ]
+        path: '/home',
+        element: <HomePage />
+    },
+    {
+        path: '/destination',
+        element: <DestinationPage />
+    },
+    {
+        path: '/terminal',
+        element: <TerminalPage />
+    },
+    {
+        path: '/booking',
+        element: <BookingPage />
+    },
+    {
+        path: '/summary',
+        element: <SummaryPage />
+    },
+    {
+        path: '/ticket',
+        element: <TicketPage />
+    },
+    {
+        path: '/history',
+        element: <HistoryPage />
     }
 ]);
 
