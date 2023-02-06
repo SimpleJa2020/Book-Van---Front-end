@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Input from '../../components/Input';
+import validateRegister from '../../validators/validate-register';
 
 const initialInput = {
     firstName: '',
@@ -9,18 +10,31 @@ const initialInput = {
     password: '',
     confirmPassword: ''
 };
+
 export default function RegisterForm() {
     const [input, setInput] = useState(initialInput);
+    const [error, setError] = useState(initialInput);
 
     const handleChangeInput = e => {
         setInput({ ...input, [e.target.name]: e.target.value });
     };
+
+    const handleSubmitForm = e => {
+        e.preventDefault();
+        const result = validateRegister(input);
+        console.dir(result);
+        if (result) {
+            setError({ ...error, ...result });
+        } else {
+            setError(initialInput);
+        }
+    };
     return (
-        <form className="flex-col items-center justify-center">
-            <div
-                className="ml-[50px]"
-                // className="flex flex-col justify-center items-center"
-            >
+        <form
+            className="flex-col items-center justify-center"
+            onSubmit={handleSubmitForm}
+        >
+            <div className="ml-[50px]">
                 <div className="mt-10">
                     <Input
                         className="w-72 border-2 p-2"
@@ -29,6 +43,7 @@ export default function RegisterForm() {
                         name="firstName"
                         value={input.firstName}
                         onChange={handleChangeInput}
+                        error={error.firstName}
                     />
                 </div>
                 <div className="mt-10">
@@ -39,6 +54,7 @@ export default function RegisterForm() {
                         name="lastName"
                         value={input.lastName}
                         onChange={handleChangeInput}
+                        error={error.lastName}
                     />
                 </div>
                 <div className="mt-10">
@@ -52,6 +68,7 @@ export default function RegisterForm() {
                                 id="male"
                                 value="male"
                                 onChange={handleChangeInput}
+                                error={error.gender}
                             />
                             <label htmlFor="male">Male</label>
                         </div>
@@ -64,36 +81,13 @@ export default function RegisterForm() {
                                 id="female"
                                 value="female"
                                 onChange={handleChangeInput}
+                                error={error.gender}
                             />
                             <label htmlFor="female">Female</label>
                         </div>
                     </div>
                 </div>
-                {/* <div className=" bg-[red] mt-10 btn-group" role="group">
-                    <div>
-                        <p>Gender</p>
-                    </div>
-                    <div className="w-[20px]">
-                        <Input
-                            className=" btn-check default:'male'"
-                            type="radio"
-                            name="gender"
-                            id="male"
-                            value="male"
-                            onChange={handleChangeInput}
-                        />
-                        <label htmlFor="male">Male</label>
-                        <Input
-                            className="btn-check"
-                            type="radio"
-                            name="gender"
-                            id="female"
-                            value="female"
-                            onChange={handleChangeInput}
-                        />
-                        <label htmlFor="female">Female</label>
-                    </div> */}
-                {/* </div> */}
+
                 <div className="mt-10">
                     <Input
                         className="w-72 border-2 p-2"
@@ -102,32 +96,35 @@ export default function RegisterForm() {
                         name="emailOrMobile"
                         value={input.emailOrMobile}
                         onChange={handleChangeInput}
+                        error={error.emailOrMobile}
                     />
                 </div>
                 <div className="mt-10">
                     <Input
                         className="w-72 border-2 p-2"
-                        type="text"
+                        type="password"
                         placeholder="Password"
                         name="password"
                         value={input.password}
                         onChange={handleChangeInput}
+                        error={error.password}
                     />
                 </div>
                 <div className="mt-10">
                     <Input
                         className="w-72 border-2 p-2"
-                        type="text"
+                        type="password"
                         placeholder="Confirm Password"
                         name="confirmPassword"
                         value={input.confirmPassword}
                         onChange={handleChangeInput}
+                        error={error.confirmPassword}
                     />
                 </div>
                 <div className="mt-10">
                     <button
                         className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white"
-                        type="button"
+                        type="submit"
                     >
                         Sign up
                     </button>

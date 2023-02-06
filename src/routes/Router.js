@@ -12,7 +12,7 @@ import SummaryPage from '../pages/SummaryPage';
 
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: '/login',
         element: <LoginPage />
     },
     {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     },
 
     {
-        path: '/home',
+        path: '/',
         element: <HomePage />
     },
     {

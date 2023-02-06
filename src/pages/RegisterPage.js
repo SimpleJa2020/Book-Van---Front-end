@@ -14,7 +14,7 @@ export default function RegisterPage() {
                 <small>Already have an account?</small>
             </div>
             <div className="mt-10 flex flex-col justify-center items-center pb-24">
-                <Link to="/">Login</Link>
+                <Link to="/login">Login</Link>
             </div>
         </div>
     );
