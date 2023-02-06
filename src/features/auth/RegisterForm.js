@@ -13,7 +13,7 @@ const initialInput = {
 
 export default function RegisterForm() {
     const [input, setInput] = useState(initialInput);
-    const [error, setError] = useState(initialInput);
+    const [error, setError] = useState({});
 
     const handleChangeInput = e => {
         setInput({ ...input, [e.target.name]: e.target.value });
@@ -24,9 +24,9 @@ export default function RegisterForm() {
         const result = validateRegister(input);
         console.dir(result);
         if (result) {
-            setError({ ...error, ...result });
+            setError({ result });
         } else {
-            setError(initialInput);
+            setError({});
         }
     };
     return (
