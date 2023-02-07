@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Input from '../../components/Input';
 import validateRegister from '../../validators/validate-register';
+import * as authApi from '../../apis/auth-api';
+import { useNavigate } from 'react-router-dom';
 
 const initialInput = {
     firstName: '',
@@ -19,15 +21,19 @@ export default function RegisterForm() {
         setInput({ ...input, [e.target.name]: e.target.value });
     };
 
-    const handleSubmitForm = e => {
-        e.preventDefault();
-        const result = validateRegister(input);
-        console.dir(result);
-        if (result) {
-            setError({ result });
-        } else {
-            setError({});
-        }
+    const navigate = useNavigate();
+    const handleSubmitForm = async e => {
+        try {
+            e.preventDefault();
+            const result = validateRegister(input);
+            if (result) {
+                setError(result);
+            } else {
+                setError({});
+                await authApi.register(input);
+            }
+            navigate('/login');
+        } catch (err) {}
     };
     return (
         <form

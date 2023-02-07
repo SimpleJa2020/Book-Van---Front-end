@@ -9,11 +9,17 @@ import Layout from '../layouts/Layout';
 import TerminalPage from '../pages/TerminalPage';
 import BookingPage from '../pages/BookingPage';
 import SummaryPage from '../pages/SummaryPage';
+import RedirectIfAuthenticated from '../features/auth/RedirectIfAuthenticated';
+import ProtectedRoute from '../features/auth/ProtectedRoute';
 
 const router = createBrowserRouter([
     {
         path: '/login',
-        element: <LoginPage />
+        element: (
+            <RedirectIfAuthenticated>
+                <LoginPage />
+            </RedirectIfAuthenticated>
+        )
     },
     {
         path: '/register',
@@ -22,31 +28,44 @@ const router = createBrowserRouter([
 
     {
         path: '/',
-        element: <HomePage />
+        element: (
+            <ProtectedRoute>
+                <HomePage />
+            </ProtectedRoute>
+        )
     },
     {
-        path: '/destination',
-        element: <DestinationPage />
-    },
-    {
-        path: '/terminal',
-        element: <TerminalPage />
-    },
-    {
-        path: '/booking',
-        element: <BookingPage />
-    },
-    {
-        path: '/summary',
-        element: <SummaryPage />
-    },
-    {
-        path: '/ticket',
-        element: <TicketPage />
-    },
-    {
-        path: '/history',
-        element: <HistoryPage />
+        element: (
+            <ProtectedRoute>
+                <Layout />
+            </ProtectedRoute>
+        ),
+        children: [
+            {
+                path: '/destination',
+                element: <DestinationPage />
+            },
+            {
+                path: '/terminal',
+                element: <TerminalPage />
+            },
+            {
+                path: '/booking',
+                element: <BookingPage />
+            },
+            {
+                path: '/summary',
+                element: <SummaryPage />
+            },
+            {
+                path: '/ticket',
+                element: <TicketPage />
+            },
+            {
+                path: '/history',
+                element: <HistoryPage />
+            }
+        ]
     }
 ]);
 

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import RegisterForm from '../features/auth/RegisterForm';
 
 export default function RegisterPage() {
@@ -12,9 +11,6 @@ export default function RegisterPage() {
             </div>
             <div className="mt-10 flex flex-col justify-center items-center ">
                 <small>Already have an account?</small>
-            </div>
-            <div className="mt-10 flex flex-col justify-center items-center pb-24">
-                <Link to="/login">Login</Link>
             </div>
         </div>
     );
