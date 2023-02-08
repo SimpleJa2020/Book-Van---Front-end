@@ -10,7 +10,8 @@ const initialInput = {
     gender: '',
     emailOrMobile: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    role: 'user'
 };
 
 export default function RegisterForm() {

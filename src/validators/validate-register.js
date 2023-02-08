@@ -31,7 +31,8 @@ const registerSchema = Joi.object({
         .messages({
             'any.only': 'password and confirm did not match',
             'string.empty': 'confirm password is required'
-        })
+        }),
+    role: Joi.string()
 });
 
 const validateRegister = input => {
