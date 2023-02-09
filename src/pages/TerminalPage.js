@@ -1,6 +1,3 @@
-import BookingPage from '../pages/BookingPage';
-import Primary from '../assets/primary.svg';
-import { useEffect, useState } from 'react';
 import useAuth from '../hooks/useAuth';
 import TerminalContainer from '../features/terminal/TerminalContainer';
 
