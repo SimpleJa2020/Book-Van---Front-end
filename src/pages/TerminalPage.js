@@ -4,6 +4,7 @@ import TerminalContainer from '../features/terminal/TerminalContainer';
 export default function TerminalPage() {
     const { departure } = useAuth();
     console.log(departure);
+
     return (
         <>
             <div>

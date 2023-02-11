@@ -11,6 +11,7 @@ import BookingPage from '../pages/BookingPage';
 import SummaryPage from '../pages/SummaryPage';
 import RedirectIfAuthenticated from '../features/auth/RedirectIfAuthenticated';
 import ProtectedRoute from '../features/auth/ProtectedRoute';
+import BookingSeat from '../features/booking/BookingSeat';
 
 const router = createBrowserRouter([
     {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
             {
                 path: '/summary',
                 element: <SummaryPage />
+            },
+            {
+                path: '/seat',
+                element: <BookingSeat />
             },
             {
                 path: '/ticket',
