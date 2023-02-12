@@ -26,17 +26,24 @@ export default function AuthContextProvider({ children }) {
         setAuthenticatedUser(null);
     };
 
+    const fetchTerminal = async () => {
+        const res = await departureApi.getAllDeparture();
+        setDeparture(res.data.departure);
+    };
     useEffect(() => {
-        const fetchTerminal = async () => {
-            const res = await departureApi.getAllDeparture();
-            setDeparture(res.data.departure);
-        };
         fetchTerminal();
     }, []);
 
     return (
         <AuthContext.Provider
-            value={{ authenticatedUser, login, logout, departure }}
+            value={{
+                authenticatedUser,
+                login,
+                logout,
+                departure,
+                setDeparture,
+                fetchTerminal
+            }}
         >
             {children}
         </AuthContext.Provider>

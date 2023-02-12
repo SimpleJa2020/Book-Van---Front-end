@@ -2,7 +2,7 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import * as bookingApi from '../../apis/booking-api';
 import CalendarContainer from './CalendarContainer';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const initialDropdown = {
     startingTerminal: '',
@@ -13,7 +13,7 @@ const initialDropdown = {
 export default function BookingForm() {
     const [start, setStart] = useState(initialDropdown);
 
-    const { departure } = useAuth();
+    const { departure, setDeparture } = useAuth();
 
     const handleChangeDropdown = async e => {
         let toSet;
@@ -24,21 +24,35 @@ export default function BookingForm() {
         }
         setStart({ ...start, [toSet]: e.target.value });
         console.log({ ...start, [toSet]: e.target.value });
-        const res = await bookingApi.getDestination(e.target.value);
+        const res = await bookingApi.getAllBooking(e.target.value);
         console.log(res.data);
     };
 
-    // const handleSearchSeat = async e => {
-    //     try {
-    //         e.preventDefault()
-    //         await departure
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
+    const bookNavigate = useNavigate();
+
+    const handleSubmitBook = async e => {
+        try {
+            e.preventDefault();
+            const trueDate = new Date(start.date);
+            const date = trueDate.getDate();
+            trueDate.setDate(date + 1);
+            const input = {
+                origin: start.startingTerminal,
+                finalPlace: start.destination,
+                bookingDate: trueDate.toISOString().split('T')[0]
+            };
+            console.log(input);
+            const result = await bookingApi.getAllBooking(input);
+            console.log(result.data.timeList);
+            setDeparture(result.data.timeList);
+            bookNavigate('/summary');
+        } catch (err) {
+            console.log(err);
+        }
+    };
     return (
         <>
-            <form>
+            <form onSubmit={handleSubmitBook}>
                 <div>Choose your trip</div>
                 <div className="">
                     <div>From</div>
@@ -93,14 +107,12 @@ export default function BookingForm() {
                     <CalendarContainer start={start} setStart={setStart} />
                 </div>
                 <div className="">
-                    <Link to="/summary">
-                        <button
-                            type="submit"
-                            className="border-2 w-72 p-2 rounded-xl bg-white text-orange-400 border-orange-400"
-                        >
-                            book
-                        </button>
-                    </Link>
+                    <button
+                        type="submit"
+                        className="border-2 w-72 p-2 rounded-xl bg-white text-orange-400 border-orange-400"
+                    >
+                        book
+                    </button>
                 </div>
             </form>
         </>

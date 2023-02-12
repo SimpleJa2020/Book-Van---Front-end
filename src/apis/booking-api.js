@@ -1,3 +1,6 @@
 import axios from '../config/axios';
 
-export const getDestination = departure => axios.get(`/departure/${departure}`);
+export const getAllBooking = input => axios.post(`/booking`, input);
+
+export const createReservation = vanId =>
+    axios.post('/reservation/vans', vanId);

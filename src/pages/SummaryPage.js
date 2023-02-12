@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import BookingSeat from '../features/booking/BookingSeat';
 import useAuth from '../hooks/useAuth';
 
 export default function SummaryPage() {
@@ -26,7 +25,6 @@ export default function SummaryPage() {
                                         <button className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white">
                                             Search Seat
                                         </button>
-                                        <BookingSeat />
                                     </Link>
                                 </div>
                             </div>

@@ -1,18 +1,13 @@
 export default function BookingSeat() {
     return (
         <>
-            <div className="border-3  flex flex-col items-center">
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
-                <div className="w-10 h-10 border-2 "></div>
+            <div>
+                <div className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl ">
+                    <button>1 </button>
+                </div>
+                <div className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl ">
+                    <button>2 </button>
+                </div>
             </div>
         </>
     );
