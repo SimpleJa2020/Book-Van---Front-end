@@ -24,7 +24,7 @@ export default function SummaryPage() {
                                 <div className="forBook">
                                     <Link to="/seat">
                                         <button className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white">
-                                            book
+                                            Search Seat
                                         </button>
                                         <BookingSeat />
                                     </Link>

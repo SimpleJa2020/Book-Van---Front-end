@@ -2,6 +2,7 @@ import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import * as bookingApi from '../../apis/booking-api';
 import CalendarContainer from './CalendarContainer';
+import { Link } from 'react-router-dom';
 
 const initialDropdown = {
     startingTerminal: '',
@@ -27,6 +28,14 @@ export default function BookingForm() {
         console.log(res.data);
     };
 
+    // const handleSearchSeat = async e => {
+    //     try {
+    //         e.preventDefault()
+    //         await departure
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
     return (
         <>
             <form>
@@ -84,12 +93,14 @@ export default function BookingForm() {
                     <CalendarContainer start={start} setStart={setStart} />
                 </div>
                 <div className="">
-                    <button
-                        type="submit"
-                        className="border-2 w-72 p-2 rounded-xl bg-white text-orange-400 border-orange-400"
-                    >
-                        Search Seat
-                    </button>
+                    <Link to="/summary">
+                        <button
+                            type="submit"
+                            className="border-2 w-72 p-2 rounded-xl bg-white text-orange-400 border-orange-400"
+                        >
+                            book
+                        </button>
+                    </Link>
                 </div>
             </form>
         </>

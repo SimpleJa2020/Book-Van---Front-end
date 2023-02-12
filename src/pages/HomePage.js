@@ -33,7 +33,7 @@ export default function HomePage() {
                     <div className="mt-4 w-full">
                         <HomeCarousel></HomeCarousel>
                         <div className=" flex justify-center my-10">
-                            <Link to={'/destination'}>
+                            <Link to={'/booking'}>
                                 <div className="bg-orange-600 w-24 h-24 m-2 flex flex-col items-center justify-center rounded-xl">
                                     <img
                                         className="w-10 h-10 "
@@ -82,6 +82,7 @@ export default function HomePage() {
                                         <img
                                             className="w-1/2 h-10 color-orange-600"
                                             src={PriceTag}
+                                            alt="icon"
                                         />
                                         <p>100</p>
                                     </div>
@@ -104,6 +105,7 @@ export default function HomePage() {
                                     <img
                                         className="w-1/2 h-10 color-orange-600"
                                         src={PriceTag}
+                                        alt="icon"
                                     />
                                     <p>100</p>
                                 </div>
