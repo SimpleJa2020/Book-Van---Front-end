@@ -11,6 +11,7 @@ export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
     const [departure, setDeparture] = useState([]);
+    const [selectSeat, setSelectSeat] = useState({});
 
     const [authenticatedUser, setAuthenticatedUser] = useState(
         getAccessToken() ? true : null
@@ -43,6 +44,8 @@ export default function AuthContextProvider({ children }) {
                 logout,
                 departure,
                 setDeparture,
+                selectSeat,
+                setSelectSeat,
                 fetchTerminal
             }}
         >

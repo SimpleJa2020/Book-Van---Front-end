@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 export default function SummaryPage() {
-    const { departure } = useAuth();
+    // const [selectSeat, setSelectSeat] = useState({});
+    // console.log('kram', selectSeat);
+    const { departure, selectSeat, setSelectSeat } = useAuth();
 
     return (
         <>
@@ -12,17 +15,23 @@ export default function SummaryPage() {
                 </div>
 
                 {departure.map(data => {
+                    console.log(data);
                     return (
                         <div className="mt-10" key={data.id}>
                             <div className="border-2 flexbox  px-5 py-10">
                                 <div className="flex justify-between">
-                                    <div>{data.startingTerminal}</div>
-                                    <div>{data.destination}</div>
+                                    <div>{data.Departure.startingTerminal}</div>
+                                    <div>{data.Departure.destination}</div>
                                 </div>
 
                                 <div className="forBook">
                                     <Link to="/seat">
-                                        <button className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white">
+                                        <button
+                                            className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white"
+                                            onClick={() => {
+                                                setSelectSeat(data);
+                                            }}
+                                        >
                                             Search Seat
                                         </button>
                                     </Link>
