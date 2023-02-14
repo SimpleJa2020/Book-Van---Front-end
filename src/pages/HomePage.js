@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 
 export default function HomePage() {
     const { logout } = useAuth();
+    // console.log(authenticatedUser);
     return (
         <>
             <div>

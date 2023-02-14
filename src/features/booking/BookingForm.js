@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
-import * as bookingApi from '../../apis/booking-api';
+import * as searchTripApi from '../../apis/trip-api';
 import CalendarContainer from './CalendarContainer';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ export default function BookingForm() {
     const [start, setStart] = useState(initialDropdown);
 
     const { departure, setDeparture } = useAuth();
+    console.log('test', departure);
 
     const handleChangeDropdown = async e => {
         let toSet;
@@ -24,8 +25,8 @@ export default function BookingForm() {
         }
         setStart({ ...start, [toSet]: e.target.value });
         console.log({ ...start, [toSet]: e.target.value });
-        const res = await bookingApi.getAllBooking(e.target.value);
-        console.log(res.data);
+        // const res = await reservationApi.createReservation(e.target.value);
+        // console.log(res.data);
     };
 
     const bookNavigate = useNavigate();
@@ -36,15 +37,14 @@ export default function BookingForm() {
             const trueDate = new Date(start.date);
             const date = trueDate.getDate();
             trueDate.setDate(date + 1);
-            const input = {
-                origin: start.startingTerminal,
-                finalPlace: start.destination,
-                bookingDate: trueDate.toISOString().split('T')[0]
-            };
-            console.log(input);
-            const result = await bookingApi.getAllBooking(input);
-            console.log(result.data.timeList);
-            setDeparture(result.data.timeList);
+
+            const result = await searchTripApi.searchTrip(
+                start.startingTerminal,
+                start.destination,
+                trueDate.toISOString().split('T')[0]
+            );
+            console.log(result.data.trips);
+            setDeparture(result.data.trips);
             bookNavigate('/summary');
         } catch (err) {
             console.log(err);
@@ -69,9 +69,9 @@ export default function BookingForm() {
                                 return (
                                     <option
                                         key={data.id}
-                                        value={data.startingTerminal}
+                                        value={data.Departure.startingTerminal}
                                     >
-                                        {data.startingTerminal}
+                                        {data.Departure.startingTerminal}
                                     </option>
                                 );
                             })}
@@ -93,9 +93,9 @@ export default function BookingForm() {
                                 return (
                                     <option
                                         key={data.id}
-                                        value={data.destination}
+                                        value={data.Departure.destination}
                                     >
-                                        {data.destination}
+                                        {data.Departure.destination}
                                     </option>
                                 );
                             })}

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-import * as departureApi from '../apis/departure-api';
+import * as tripApi from '../apis/trip-api';
 import * as authApi from '../apis/auth-api';
 import {
     getAccessToken,
@@ -11,6 +11,7 @@ export const AuthContext = createContext();
 
 export default function AuthContextProvider({ children }) {
     const [departure, setDeparture] = useState([]);
+
     const [authenticatedUser, setAuthenticatedUser] = useState(
         getAccessToken() ? true : null
     );
@@ -27,8 +28,8 @@ export default function AuthContextProvider({ children }) {
     };
 
     const fetchTerminal = async () => {
-        const res = await departureApi.getAllDeparture();
-        setDeparture(res.data.departure);
+        const res = await tripApi.getAllTrip();
+        setDeparture(res.data.trips);
     };
     useEffect(() => {
         fetchTerminal();
