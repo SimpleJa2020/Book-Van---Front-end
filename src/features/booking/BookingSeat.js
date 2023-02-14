@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function BookingSeat() {
-    const [seatNumber, setSeatNumber] = useState();
+    const [seatNumber, setSeatNumber] = useState([]);
     const { departure, selectSeat, setSelectSeat } = useAuth();
     console.log(selectSeat.id);
     const handlechangeInput = e => {
@@ -19,8 +19,10 @@ export default function BookingSeat() {
                 vanSeatNumber: seatNumber
             });
             const reserveId = res.data.reservation.id;
+            setSelectSeat(reserveId);
+            console.log('bbb', selectSeat);
             console.log('kram', JSON.stringify(reserveId));
-            ticketNavigate(`/ticket/${reserveId}`);
+            ticketNavigate(`/ticket/booked/${reserveId}`);
         } catch (err) {}
     };
 

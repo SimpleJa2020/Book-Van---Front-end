@@ -35,7 +35,7 @@ export default function AuthContextProvider({ children }) {
     useEffect(() => {
         fetchTerminal();
     }, []);
-
+    useEffect(() => {}, []);
     return (
         <AuthContext.Provider
             value={{

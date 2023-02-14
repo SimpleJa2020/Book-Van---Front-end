@@ -63,7 +63,7 @@ const router = createBrowserRouter([
                 element: <BookingSeat />
             },
             {
-                path: '/ticket',
+                path: '/ticket/booked/:reserveId',
                 element: <TicketPage />
             },
             {

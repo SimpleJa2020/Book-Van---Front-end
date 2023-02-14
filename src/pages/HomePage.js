@@ -10,7 +10,7 @@ import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 
 export default function HomePage() {
-    const { logout } = useAuth();
+    const { logout, authenticatedUser } = useAuth();
     // console.log(authenticatedUser);
     return (
         <>
@@ -24,6 +24,7 @@ export default function HomePage() {
                             </span>
                         </Dropdown.Header>
                         <Dropdown.Item>Update</Dropdown.Item>
+
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>
                     </Dropdown>
