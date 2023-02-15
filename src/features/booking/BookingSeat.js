@@ -30,31 +30,47 @@ export default function BookingSeat() {
     return (
         <>
             <div>
-                <div className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl hover:bg-orange-500  ">
-                    <button onClick={handlechangeInput} name="1" value={1}>
-                        1
-                    </button>
-                </div>
-                <div className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500  ">
-                    <button onClick={handlechangeInput} name="2" value={2}>
-                        2
-                    </button>
-                </div>
-                <div className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 ">
-                    <button onClick={handlechangeInput} name="3" value={3}>
-                        3
-                    </button>
-                </div>
-                <div className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 ">
-                    <button onClick={handlechangeInput} name="4" value={4}>
-                        4
-                    </button>
-                </div>
-                <div className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 ">
-                    <button onClick={handlechangeInput} name="5" value={5}>
-                        5
-                    </button>
-                </div>
+                <button
+                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl hover:bg-orange-500  "
+                    onClick={handlechangeInput}
+                    name="1"
+                    value={1}
+                >
+                    1
+                </button>
+                <button
+                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500  "
+                    onClick={handlechangeInput}
+                    name="2"
+                    type="button"
+                    value={2}
+                >
+                    2
+                </button>
+                <button
+                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 "
+                    onClick={handlechangeInput}
+                    name="3"
+                    value={3}
+                >
+                    3
+                </button>
+                <button
+                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 "
+                    onClick={handlechangeInput}
+                    name="4"
+                    value={4}
+                >
+                    4
+                </button>
+                <button
+                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 "
+                    onClick={handlechangeInput}
+                    name="5"
+                    value={5}
+                >
+                    5
+                </button>
                 <div>
                     <button
                         className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white"

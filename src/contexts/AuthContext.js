@@ -15,7 +15,7 @@ export default function AuthContextProvider({ children }) {
     const [selectSeat, setSelectSeat] = useState({});
     const [getme, setGetMe] = useState({});
     const [tkList, setTkList] = useState([]);
-
+    const refresh = () => window.location.reload(true);
     const [authenticatedUser, setAuthenticatedUser] = useState(
         getAccessToken() ? true : null
     );
@@ -56,11 +56,13 @@ export default function AuthContextProvider({ children }) {
         const res = await authApi.login({ emailOrMobile, password });
         setAccessToken(res.data.accessToken);
         setAuthenticatedUser(true);
+        refresh();
     };
 
     const logout = () => {
         removeAccessToken();
         setAuthenticatedUser(null);
+        refresh();
     };
 
     const fetchTerminal = async () => {
@@ -68,9 +70,14 @@ export default function AuthContextProvider({ children }) {
         setDeparture(res.data.trips);
     };
     useEffect(() => {
-        fetchTerminal();
+        if (authenticatedUser) {
+            fetchTerminal();
+        }
     }, []);
 
+    // if (authenticatedUser) {
+    //     console.log(JSON.stringify(authenticatedUser.role));
+    // }
     return (
         <AuthContext.Provider
             value={{

@@ -4,6 +4,7 @@ import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import DestinationPage from '../pages/DestinationPage';
 import TicketPage from '../pages/TicketPage';
+import PendingPage from '../pages/PendingPage';
 import HistoryPage from '../pages/HistoryPage';
 import Layout from '../layouts/Layout';
 import TerminalPage from '../pages/TerminalPage';
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
             {
                 path: '/ticket/booked/:reserveId',
                 element: <TicketPage />
+            },
+            {
+                path: '/pending',
+                element: <PendingPage />
             },
             {
                 path: '/history',

@@ -5,15 +5,24 @@ export default function TicketPage() {
     const { getme, tkList, setTkList } = useAuth();
     console.log(getme);
     const homeNavigate = useNavigate();
-    const getList = async () => {
+    const getList = async item => {
         const res = await paymentApi.createPayment({
-            isPaid: 1,
+            isPaid: item,
             passengerId: getme.passengerId,
             reservationId: getme.id
         });
-        homeNavigate('/');
+
         console.log(res.data);
     };
+    // const pendingList = async () => {
+    //     const res = await paymentApi.createPayment({
+    //         isPaid: 0,
+    //         passengerId: getme.passengerId,
+    //         reservationId: getme.id
+    //     });
+    //     homeNavigate('/pending');
+    //     console.log(res.data);
+
     console.log(tkList);
     return (
         <>
@@ -39,10 +48,21 @@ export default function TicketPage() {
                                 type="button"
                                 className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white"
                                 onClick={() => {
-                                    getList();
+                                    getList(1);
+                                    homeNavigate('/history');
                                 }}
                             >
                                 Pay
+                            </button>
+                            <button
+                                type="button"
+                                className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white"
+                                onClick={() => {
+                                    getList(0);
+                                    homeNavigate('/');
+                                }}
+                            >
+                                book
                             </button>
                         </div>
                     </div>

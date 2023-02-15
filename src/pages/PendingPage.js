@@ -1,7 +1,7 @@
 import * as getPaymentApi from '../apis/payment-api';
 import { useEffect, useState } from 'react';
 
-export default function HistoryPage() {
+export default function PendingPage() {
     const [report, setReport] = useState([]);
 
     const getPaymentList = async () => {
