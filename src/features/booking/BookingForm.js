@@ -14,7 +14,7 @@ export default function BookingForm() {
     const [start, setStart] = useState(initialDropdown);
 
     const { departure, setDeparture } = useAuth();
-    console.log('test', departure);
+    // console.log('test', departure);
 
     const handleChangeDropdown = async e => {
         let toSet;

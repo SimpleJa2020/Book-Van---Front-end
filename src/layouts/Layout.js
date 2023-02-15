@@ -4,8 +4,12 @@ export default function Layout() {
     const navigate = useNavigate();
     return (
         <>
-            <nav>Header</nav>
-            <div role="button" onClick={() => navigate(-1)}>
+            <div
+                role="button"
+                onClick={async () => {
+                    await navigate(-1);
+                }}
+            >
                 <img className="w-10 h-10" src={Back} alt="back" />
             </div>
             <Outlet />
