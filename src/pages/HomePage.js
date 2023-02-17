@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom';
 
 export default function HomePage() {
     const { logout, authenticatedUser } = useAuth();
-    console.log(authenticatedUser.role);
+    // console.log(JSON.stringify(authenticatedUser));
     return (
         <>
             <div>
@@ -23,13 +23,15 @@ export default function HomePage() {
                                 bonnie@flowbite.com
                             </span>
                         </Dropdown.Header>
-                        {/* <Dropdown.Item>Update</Dropdown.Item> */}
 
+                        {authenticatedUser.role == 'user' ? null : (
+                            <Dropdown.Item>Update</Dropdown.Item>
+                        )}
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>
                     </Dropdown>
                 </div>
-                {JSON.stringify(authenticatedUser.role)}
+
                 <div className="flex flex-col items-center">
                     <img className="w-44 h-44" src={Vanlogo} alt="logo" />
                     <div className="mt-4 w-full">

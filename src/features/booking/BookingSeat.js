@@ -1,12 +1,25 @@
 import useAuth from '../../hooks/useAuth';
 import * as selectSeatApi from '../../apis/reservation-api';
-import { useState } from 'react';
+import * as paymentApi from '../../apis/payment-api';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import SeatContainer from './SeatContainer';
 
 export default function BookingSeat() {
     const [seatNumber, setSeatNumber] = useState([]);
+    const [isPaids, setIsPaids] = useState([]);
+    console.log(isPaids);
+
     const { departure, selectSeat, setSelectSeat, setGetMe } = useAuth();
     console.log(selectSeat.id);
+    useEffect(() => {
+        const fetchPayment = async () => {
+            const res = await paymentApi.getPayment();
+            setIsPaids(res.data);
+        };
+        fetchPayment();
+    }, []);
+
     const handlechangeInput = e => {
         setSeatNumber(e.target.value);
     };
@@ -14,7 +27,7 @@ export default function BookingSeat() {
 
     const handleClickSubmit = async () => {
         try {
-            const res = await selectSeatApi.createReservation({
+            const res = await selectSeatApi.findReservation({
                 tripId: selectSeat.id,
                 vanSeatNumber: seatNumber
             });
@@ -30,14 +43,7 @@ export default function BookingSeat() {
     return (
         <>
             <div>
-                <button
-                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl hover:bg-orange-500  "
-                    onClick={handlechangeInput}
-                    name="1"
-                    value={1}
-                >
-                    1
-                </button>
+                <SeatContainer isPaids={isPaids} />
                 <button
                     className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500  "
                     onClick={handlechangeInput}
