@@ -1,6 +1,6 @@
 import Primary from '../../assets/primary.svg';
 
-export default function TerminalContainer({ startingTerminal, destination }) {
+export default function TripContainer({ startingTerminal, destination }) {
     return (
         <>
             <div className="flex items-start">

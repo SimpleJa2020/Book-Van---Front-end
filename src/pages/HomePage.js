@@ -11,21 +11,27 @@ import { Link } from 'react-router-dom';
 
 export default function HomePage() {
     const { logout, authenticatedUser } = useAuth();
-    // console.log(JSON.stringify(authenticatedUser));
     return (
         <>
             <div>
                 <div>
-                    <Dropdown label="Dropdown button">
+                    <Dropdown label="">
                         <Dropdown.Header>
-                            <span className="block text-sm">Bonnie Green</span>
+                            <span className="block text-sm">
+                                {authenticatedUser.firstName}
+                            </span>
+                            <span className="block text-sm">
+                                {authenticatedUser.lastName}
+                            </span>
                             <span className="block text-sm font-medium truncate">
-                                bonnie@flowbite.com
+                                {authenticatedUser.email}
                             </span>
                         </Dropdown.Header>
 
                         {authenticatedUser.role == 'user' ? null : (
-                            <Dropdown.Item>Update</Dropdown.Item>
+                            <Link to={'/admin'}>
+                                <Dropdown.Item>Update</Dropdown.Item>
+                            </Link>
                         )}
                         <Dropdown.Divider />
                         <Dropdown.Item onClick={logout}>Sign out</Dropdown.Item>

@@ -1,12 +1,14 @@
+import dayjs from 'dayjs';
 import { useState } from 'react';
-import Calendar from '../../assets/calendar.svg';
+import Calendar from '../../assets/OrangeCalendar.svg';
 import CalendarBooking from './CalendarBooking';
 
-export default function CalendarContainer({ start, setStart }) {
+export default function CalendarContainer({ choose, setChoose }) {
     const [open, setOpen] = useState(false);
+    console.log(choose);
     return (
         <>
-            <div>
+            <div className="flex mt-2">
                 <img
                     className="w-10 h-10 "
                     src={Calendar}
@@ -17,12 +19,14 @@ export default function CalendarContainer({ start, setStart }) {
                     <CalendarBooking
                         open={open}
                         onClose={() => setOpen(false)}
-                        setStart={setStart}
-                        start={start}
+                        setChoose={setChoose}
+                        choose={choose}
                     />
                 )}
-                <div className="w-72 border-2 p-2">
-                    {start.date.toDateString()}
+                <div className="w-64 border-2 p-2 ml-2">
+                    {choose?.date
+                        ? dayjs(choose.date).format('YYYY-MM-DD')
+                        : ''}
                 </div>
             </div>
         </>

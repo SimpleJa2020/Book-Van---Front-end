@@ -1,85 +1,53 @@
-import useAuth from '../../hooks/useAuth';
-import * as selectSeatApi from '../../apis/reservation-api';
-import * as paymentApi from '../../apis/payment-api';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as reservationApi from '../../apis/reservation-api';
+import useTrip from '../../hooks/useTrip';
+import { useNavigate, useParams } from 'react-router-dom';
 import SeatContainer from './SeatContainer';
+import { useEffect } from 'react';
+import useReservation from '../../hooks/useReservation';
+import useAuth from '../../hooks/useAuth';
 
 export default function BookingSeat() {
-    const [seatNumber, setSeatNumber] = useState([]);
-    const [isPaids, setIsPaids] = useState([]);
-    console.log(isPaids);
+    const { trips, setTrips, choose, setChoose } = useTrip();
+    const { seatNumber, setSeatNumber } = useReservation();
+    const { getUser } = useAuth();
+    console.log('getUser', getUser);
+    const passengerId = getUser;
+    const params = useParams();
 
-    const { departure, selectSeat, setSelectSeat, setGetMe } = useAuth();
-    console.log(selectSeat.id);
+    const fetchSeat = async () => {
+        const res = await reservationApi.getReservationById(params.tripId);
+        setChoose(choose => ({ ...choose, tripId: params.tripId }));
+        setSeatNumber(res.data);
+    };
+    console.log(choose);
+
     useEffect(() => {
-        const fetchPayment = async () => {
-            const res = await paymentApi.getPayment();
-            setIsPaids(res.data);
-        };
-        fetchPayment();
+        fetchSeat();
     }, []);
 
-    const handlechangeInput = e => {
-        setSeatNumber(e.target.value);
-    };
     const ticketNavigate = useNavigate();
 
     const handleClickSubmit = async () => {
         try {
-            const res = await selectSeatApi.findReservation({
-                tripId: selectSeat.id,
-                vanSeatNumber: seatNumber
-            });
+            const res = await reservationApi.createReservation(choose);
             const reserveId = res.data.reservation;
-            console.log('xxxxxxxxxxxxxxxxxxx ----- new', reserveId);
-            setGetMe(reserveId);
-            console.log('bbb', selectSeat);
-            console.log('kram', JSON.stringify(reserveId));
+
             ticketNavigate(`/ticket/booked/${reserveId}`);
         } catch (err) {}
     };
 
     return (
         <>
-            <div>
-                <SeatContainer isPaids={isPaids} />
-                <button
-                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500  "
-                    onClick={handlechangeInput}
-                    name="2"
-                    type="button"
-                    value={2}
-                >
-                    2
-                </button>
-                <button
-                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 "
-                    onClick={handlechangeInput}
-                    name="3"
-                    value={3}
-                >
-                    3
-                </button>
-                <button
-                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 "
-                    onClick={handlechangeInput}
-                    name="4"
-                    value={4}
-                >
-                    4
-                </button>
-                <button
-                    className="bg-orange-300  w-20 h-20 m-2 flex flex-col items-center justify-center rounded-xl  hover:bg-orange-500 "
-                    onClick={handlechangeInput}
-                    name="5"
-                    value={5}
-                >
-                    5
-                </button>
-                <div>
+            <div className="flex flex-col justify-center mt-28">
+                <div className="flex justify-center mb-12">
+                    <h1 className="text-[30px]">Choose your seat</h1>
+                </div>
+
+                <SeatContainer choose={choose} setChoose={setChoose} />
+
+                <div className="flex justify-center mt-14">
                     <button
-                        className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white"
+                        className="border-2 w-72 p-2  rounded-xl bg-orange-500 text-white"
                         onClick={handleClickSubmit}
                         type="submit"
                     >

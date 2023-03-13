@@ -5,6 +5,7 @@ export default function Layout() {
     return (
         <>
             <div
+                className="mt-5 w-5 ml-4"
                 role="button"
                 onClick={async () => {
                     await navigate(-1);

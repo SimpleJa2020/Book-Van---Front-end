@@ -4,13 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthContextProvider from './contexts/AuthContext';
+import TripContextProvider from './contexts/TripContext';
+import ReservationContextProvider from './contexts/ReservationContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <AuthContextProvider>
-            <App />
-        </AuthContextProvider>
+        <ReservationContextProvider>
+            <TripContextProvider>
+                <AuthContextProvider>
+                    <App />
+                </AuthContextProvider>
+            </TripContextProvider>
+        </ReservationContextProvider>
     </React.StrictMode>
 );
 

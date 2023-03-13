@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Input from '../../components/Input';
 import validateRegister from '../../validators/validate-register';
 import * as authApi from '../../apis/auth-api';
+
 import { useNavigate } from 'react-router-dom';
 
 const initialInput = {

@@ -2,17 +2,17 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
-import DestinationPage from '../pages/DestinationPage';
 import TicketPage from '../pages/TicketPage';
 import PendingPage from '../pages/PendingPage';
 import HistoryPage from '../pages/HistoryPage';
 import Layout from '../layouts/Layout';
-import TerminalPage from '../pages/TerminalPage';
 import BookingPage from '../pages/BookingPage';
 import SummaryPage from '../pages/SummaryPage';
 import RedirectIfAuthenticated from '../features/auth/RedirectIfAuthenticated';
 import ProtectedRoute from '../features/auth/ProtectedRoute';
 import BookingSeat from '../features/booking/BookingSeat';
+import AdminPage from '../pages/AdminPage';
+import AdminUpdateTrip from '../pages/AdminUpdateTripPage';
 
 const router = createBrowserRouter([
     {
@@ -44,12 +44,12 @@ const router = createBrowserRouter([
         ),
         children: [
             {
-                path: '/destination',
-                element: <DestinationPage />
+                path: '/admin',
+                element: <AdminPage />
             },
             {
-                path: '/terminal',
-                element: <TerminalPage />
+                path: '/admin/updateTrip',
+                element: <AdminUpdateTrip />
             },
             {
                 path: '/booking',
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
                 element: <SummaryPage />
             },
             {
-                path: '/seat',
+                path: '/seat/:tripId',
                 element: <BookingSeat />
             },
             {
