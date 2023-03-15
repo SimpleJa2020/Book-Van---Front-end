@@ -1,79 +1,91 @@
-import useAuth from '../hooks/useAuth';
+import * as reservationApi from '../apis/reservation-api';
 import * as paymentApi from '../apis/payment-api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Van from '../assets/Van.svg';
 import Avatar from '../assets/Avatar.svg';
+import { useEffect, useState } from 'react';
+import useReservation from '../hooks/useReservation';
 export default function TicketPage() {
-    const { getme, tkList, setTkList } = useAuth();
-    // console.log(getme);
-    const homeNavigate = useNavigate();
-    const getList = async item => {
-        const res = await paymentApi.createPayment({
-            isPaid: item,
-            passengerId: getme.passengerId,
-            reservationId: getme.id
-        });
+    const { seatNumber, setSeatNumber } = useReservation();
+    console.log('seattttttttttttt', seatNumber);
+    const [ticket, setTicket] = useState({});
 
-        // console.log(res.data);
+    const params = useParams();
+    console.log(params.reserveId);
+    const NewTk = ticket[0];
+    const getList = async () => {
+        const res = await reservationApi.getReservationById(params.reserveId);
+        console.log('ggggggggggg', res.data);
+        setTicket(res.data);
     };
-    // const pendingList = async () => {
-    //     const res = await paymentApi.createPayment({
-    //         isPaid: 0,
-    //         passengerId: getme.passengerId,
-    //         reservationId: getme.id
-    //     });
-    //     homeNavigate('/pending');
-    //     console.log(res.data);
+    useEffect(() => {
+        getList();
+    }, []);
 
-    console.log(tkList);
+    const paymentNavigate = useNavigate();
+
+    const handleClickPay = async () => {
+        try {
+            const res = await paymentApi.createPayment({
+                reservationId: params.reserveId
+            });
+            paymentNavigate(`/pay/${params.reserveId}`);
+        } catch (err) {}
+    };
+
+    const handleClickCancel = async () => {
+        try {
+            const res = await reservationApi.cancelReservation({
+                reservationId: params.reserveId
+            });
+            paymentNavigate('/');
+        } catch (err) {}
+    };
     return (
         <>
             <div>
                 <div className="mt-16">
-                    <div className="bg-zinc-400 h-80 m-2 p-3">
-                        <div className="bg-white h-72 m-1">
+                    <div className="bg-zinc-400 h-96 m-2 p-3">
+                        <div className="bg-white h-80 m-1">
                             <div className="flex justify-center ml-7">
-                                <p>date</p>
+                                <p> {NewTk?.Trip?.Timetable?.date}</p>
                             </div>
                             <div className="flex justify-between mt-6">
-                                <p>startingTerminal</p>
+                                <p>
+                                    {NewTk?.Trip?.Departure?.startingTerminal}
+                                </p>
                                 <img src={Van} />
-                                <p>destination</p>
+                                <p>{NewTk?.Trip?.Departure?.destination}</p>
                             </div>
                             <img src={Avatar} />
                             <div className="flex justify-between mt-6">
-                                <p>firstName</p>
-                                <p>lastName</p>
-                                <p>email</p>
+                                <p>{NewTk?.Passenger?.firstName}</p>
+                                <p>{NewTk?.Passenger?.lastName}</p>
+                                <p>{NewTk?.Passenger?.email}</p>
                             </div>
                             <div className="flex justify-center gap-5 ml-8 mt-6">
-                                <p>time</p>
-                                <p>VanId</p>
+                                <p> {NewTk?.Trip?.Timetable?.time}</p>
+                                <p>{NewTk?.Trip?.Van}</p>
                             </div>
-                            <div className="flex justify-center mt-6 ml-7">
-                                <p>price</p>
+                            <div className="flex justify-center mt-6 ml-3">
+                                <p>{NewTk?.Trip?.Departure?.price}</p>
                             </div>
                         </div>
-                        <div className="mt-11 flex">
+                        <div className="mt-16 flex">
                             <button
-                                type="button"
-                                className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white"
-                                onClick={() => {
-                                    getList(1);
-                                    homeNavigate('/history');
-                                }}
+                                type="submit"
+                                className="border-2 w-44 p-2 rounded-xl bg-blue-600 text-white"
+                                onClick={handleClickPay}
                             >
                                 Pay
                             </button>
+
                             <button
                                 type="button"
-                                className="border-2 w-72 p-2 rounded-xl bg-orange-500 text-white"
-                                onClick={() => {
-                                    getList(0);
-                                    homeNavigate('/');
-                                }}
+                                className="border-2 w-72 p-2 rounded-xl bg-red-600 text-white"
+                                onClick={handleClickCancel}
                             >
-                                book
+                                Cancel
                             </button>
                         </div>
                     </div>

@@ -9,17 +9,19 @@ import useAuth from '../../hooks/useAuth';
 export default function BookingSeat() {
     const { trips, setTrips, choose, setChoose } = useTrip();
     const { seatNumber, setSeatNumber } = useReservation();
+
     const { getUser } = useAuth();
-    console.log('getUser', getUser);
-    const passengerId = getUser;
     const params = useParams();
 
     const fetchSeat = async () => {
         const res = await reservationApi.getReservationById(params.tripId);
-        setChoose(choose => ({ ...choose, tripId: params.tripId }));
+        setChoose(choose => ({
+            ...choose,
+            tripId: +params.tripId,
+            id: getUser.id
+        }));
         setSeatNumber(res.data);
     };
-    console.log(choose);
 
     useEffect(() => {
         fetchSeat();
@@ -30,7 +32,8 @@ export default function BookingSeat() {
     const handleClickSubmit = async () => {
         try {
             const res = await reservationApi.createReservation(choose);
-            const reserveId = res.data.reservation;
+            const reserveId = res.data.id;
+            console.log('ooooooooo', reserveId);
 
             ticketNavigate(`/ticket/booked/${reserveId}`);
         } catch (err) {}

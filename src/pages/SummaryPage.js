@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useTrip from '../hooks/useTrip';
 import GoTo from '../assets/ArrowRight.svg';
+import useAuth from '../hooks/useAuth';
 
 export default function SummaryPage() {
     const { trips, setTrips, choose, setChoose } = useTrip();
+    const { getUser } = useAuth();
+    console.log(getUser);
     let tripId;
     if (choose.time === '09:00:00') {
         tripId = 1;

@@ -5,7 +5,6 @@ import CalendarBooking from './CalendarBooking';
 
 export default function CalendarContainer({ choose, setChoose }) {
     const [open, setOpen] = useState(false);
-    console.log(choose);
     return (
         <>
             <div className="flex mt-2">

@@ -1,39 +1,47 @@
-import * as getPaymentApi from '../apis/payment-api';
+import QRcode from '../assets/QRcode.svg';
+import * as paymentApi from '../apis/payment-api';
 import { useEffect, useState } from 'react';
 
 export default function HistoryPage() {
-    const [report, setReport] = useState([]);
-
-    const getPaymentList = async () => {
-        const res = await getPaymentApi.getPayment();
-        setReport(res.data.payments);
-        // console.log(res.data);
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     };
-    // console.log('test', report);
+    const [paid, setPaid] = useState([]);
+    const getPayments = async () => {
+        const res = await paymentApi.getPayment();
+        console.log(res.data);
+        setPaid(res.data);
+    };
     useEffect(() => {
-        getPaymentList();
+        getPayments();
     }, []);
     return (
         <>
             <div className="mt-10  ">
-                {report.map(item => (
-                    <div
-                        className="border-2 flex justify-around px-5 py-10 block"
-                        key={item.id}
-                    >
-                        <img
-                            src="https://res.cloudinary.com/dyhm0zdxq/image/upload/v1676440973/330943004_726541062353788_3415083547469054031_n_vavd3h.jpg"
-                            className="w-[30px] w-[70px] "
-                        ></img>
-                        <div className="flexbox ">
-                            <div>Date payment : {item.paymentDate}</div>
+                {paid.map(el => {
+                    const paidDate = new Date(el.createdAt);
+                    return (
+                        <div
+                            className="border-2 flex justify-around px-5 py-10 block"
+                            key={el.id}
+                        >
+                            <img
+                                src={QRcode}
+                                className="w-[30px] w-[70px] "
+                            ></img>
+                            <div className="flex flex-col gap-3 ">
+                                <div>
+                                    Date payment :{' '}
+                                    {paidDate.toLocaleString('en-US', options)}
+                                </div>
 
-                            <div>
-                                vanSeatNumber : {item.Reservation.vanSeatNumber}
+                                {/* <div>vanSeatNumber :</div> */}
                             </div>
                         </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </>
     );

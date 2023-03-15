@@ -3,7 +3,7 @@ import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import RegisterPage from '../pages/RegisterPage';
 import TicketPage from '../pages/TicketPage';
-import PendingPage from '../pages/PendingPage';
+import PendingPage from '../pages/PayPage';
 import HistoryPage from '../pages/HistoryPage';
 import Layout from '../layouts/Layout';
 import BookingPage from '../pages/BookingPage';
@@ -13,6 +13,7 @@ import ProtectedRoute from '../features/auth/ProtectedRoute';
 import BookingSeat from '../features/booking/BookingSeat';
 import AdminPage from '../pages/AdminPage';
 import AdminUpdateTrip from '../pages/AdminUpdateTripPage';
+import PayPage from '../pages/PayPage';
 
 const router = createBrowserRouter([
     {
@@ -68,8 +69,8 @@ const router = createBrowserRouter([
                 element: <TicketPage />
             },
             {
-                path: '/pending',
-                element: <PendingPage />
+                path: '/pay/:reserveId',
+                element: <PayPage />
             },
             {
                 path: '/history',

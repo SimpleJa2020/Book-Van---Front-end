@@ -1,7 +1,6 @@
 import useReservation from '../../hooks/useReservation';
 
 export default function SeatContainer({ choose, setChoose }) {
-    console.log(' choose -->', choose);
     const { seatNumber, setSeatNumber } = useReservation();
     const seatName = [
         'E1',
@@ -19,16 +18,9 @@ export default function SeatContainer({ choose, setChoose }) {
         'A1',
         'A2'
     ];
-    // [{seat: 'A1', fsdajfl}, {seat: 'B3', dfaskdjds}] --> const bookedSeat = ['A1', 'B3'] --> !bookedSeat.includes(el.seat)
     const seatNumberFromReservation = seatNumber.map(el => {
         return el.vanSeatNumber;
-        // return {
-        //     vanSeatNumber: el,
-        //     status: seatNumber.includes(el)
-        // };
     });
-
-    console.log('krams', seatNumberFromReservation);
 
     const allSeats = seatName.map(el => {
         return {
@@ -37,7 +29,6 @@ export default function SeatContainer({ choose, setChoose }) {
         };
     });
 
-    console.log('-------> ', allSeats);
     const handleClickSeat = (e, status) => {
         if (status) {
             console.log(`seat ${e.target.value} was clicked`);
