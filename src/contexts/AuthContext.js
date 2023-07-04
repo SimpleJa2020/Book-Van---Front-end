@@ -32,7 +32,6 @@ export default function AuthContextProvider({ children }) {
             }
         };
         if (getAccessToken()) {
-            // console.log('5555');
             fetchAuthUser();
         }
     }, []);
